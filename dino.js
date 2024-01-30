@@ -25,8 +25,29 @@ export function updateDino(deltaTime, speedScale) {
   handleJump(deltaTime);
 }
 
-export function getDinoRect() {
-  return dinoElem.getBoundingClientRect();
+
+/**
+ * The function `getDinoRect` returns an object representing the dimensions and position of a dinosaur
+ * element with a specified padding percentage.
+ * @param paddingPercentage - The `paddingPercentage` parameter is a number that represents the
+ * percentage of padding to be applied to the dinosaur element's bounding rectangle. It determines how
+ * much space should be added or subtracted from each side of the rectangle.
+ * @returns an object with the following properties: top, right, bottom, left, width, and height. These
+ * properties represent the coordinates and dimensions of a rectangle that surrounds the dinosaur
+ * element, with a specified padding percentage applied.
+ */
+export function getDinoRect(paddingPercentage) {
+  const dinoRect = dinoElem.getBoundingClientRect();
+  const paddingX = dinoRect.width * (paddingPercentage / 100);
+  const paddingY = dinoRect.height * (paddingPercentage / 100);
+  return {
+    top: dinoRect.top + paddingY,
+    right: dinoRect.right - (paddingX * 2),
+    bottom: dinoRect.bottom - paddingY,
+    left: dinoRect.left + paddingX,
+    width: dinoRect.width - 2 * paddingX,
+    height: dinoRect.height - 2 * paddingY
+  }
 }
 
 export function setDinoLose() {

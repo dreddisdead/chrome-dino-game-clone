@@ -37,7 +37,7 @@ function update(time) {
 }
 
 function checkLose() {
-  const dinoRect = getDinoRect();
+  const dinoRect = getDinoRect(20);
   return getCactusRects().some(rect => isCollision(rect, dinoRect))
 }
 
