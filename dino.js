@@ -93,17 +93,18 @@ function handleRun(deltaTime, speedScale) {
   }
 
   if (currentFrameTime >= FRAME_TIME) {
-    dinoFrame = (dinoFrame + 1) % DINO_FRAME_COUNT;
-    dinoElem.src = `imgs/dino-run-${dinoFrame}.png`
-    currentFrameTime -= FRAME_TIME;
+    if (score < 50) {
+      dinoFrame = (dinoFrame + 1) % DINO_FRAME_COUNT;
+      dinoElem.src = `imgs/dino-run-${dinoFrame}.png`
+      currentFrameTime -= FRAME_TIME;
+    } else if (score >= 50) {
+      dinoFrame = (dinoFrame + 1) % DINO_STAR_FRAME_COUNT;
+      dinoElem.src = `imgs/dino-star-${dinoFrame}.png`
+      starMode = true; // flag to indicate that the star mode is on
+      currentFrameTime -= FRAME_TIME;
+    }
   }
 
-  // Play star run animation if the score is greater than 250
-  if (score > 250) {
-    dinoFrame = (dinoFrame + 1) % DINO_STAR_FRAME_COUNT;
-    dinoElem.src = `imgs/dino-star-${dinoFrame}.png`
-    starMode = true; // flag to indicate that the star mode is on
-  }
   currentFrameTime += deltaTime * speedScale;
 }
 
